@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PlayerComponent from "@/components/PlayerComponent.vue";
 import TableComponent from "@/components/TableComponent.vue";
+import UIAlert from "@/UI/UIAlert.vue";
 </script>
 
 <template>
@@ -8,6 +9,10 @@ import TableComponent from "@/components/TableComponent.vue";
     <PlayerComponent name="Игорь" />
     <TableComponent />
     <PlayerComponent name="Вы" :you="true" />
+    <UIAlert
+      title="Ожидаем готовность комнаты"
+      text="Оставайтесь и одержите победу!"
+    />
   </div>
 </template>
 
