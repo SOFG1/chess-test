@@ -4,7 +4,7 @@ import { generateInitialTable } from "@/utils/generateInitialTable";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 
-export const USER_COLOR = "white"
+export const USER_COLOR = "white";
 
 export const useGameStore = defineStore("gameStore", () => {
   const playerReady = ref(false);
@@ -13,8 +13,8 @@ export const useGameStore = defineStore("gameStore", () => {
   const possibleMoves = ref<number[]>([]);
 
   const isUserMove = computed(() => {
-    return playerReady.value && turn.value === USER_COLOR
-  })
+    return playerReady.value && turn.value === USER_COLOR;
+  });
 
   function setReady(ready: boolean) {
     if (playerReady.value) return;
@@ -24,8 +24,22 @@ export const useGameStore = defineStore("gameStore", () => {
 
   function onSelectFigure(index: number) {
     if (!isUserMove.value) return;
-    possibleMoves.value = calculatePossibleMoves(table.value, index);
+    const moves = calculatePossibleMoves(table.value, index);
+    setPossibleMoves(moves);
   }
 
-  return { playerReady, turn, possibleMoves, table, isUserMove, onSelectFigure, setReady };
+  function setPossibleMoves(moves: number[]) {
+    possibleMoves.value = moves;
+  }
+
+  return {
+    playerReady,
+    turn,
+    possibleMoves,
+    table,
+    isUserMove,
+    onSelectFigure,
+    setReady,
+    setPossibleMoves
+  };
 });

@@ -19,8 +19,8 @@ const props = defineProps<{ figure: CellType; index: number }>();
 const gameStore = useGameStore();
 
 const isPossibleMove = computed(() => {
-  return gameStore.possibleMoves.includes(props.index)
-})
+  return gameStore.possibleMoves.includes(props.index);
+});
 
 const figures = {
   pawn_black,
@@ -39,11 +39,11 @@ const figures = {
 </script>
 
 <template>
-  <div :class="['cell', {'cell-possible': isPossibleMove}]">
+  <div :class="['cell', { 'cell-possible': isPossibleMove }]">
     <button
       v-if="figure"
-      @click="gameStore.onSelectFigure(index)"
-      :disabled="!gameStore.isUserMove || figure.color !== USER_COLOR"
+      @click.stop="() => gameStore.onSelectFigure(index)"
+      :disabled="!gameStore.isUserMove || figure.color !== USER_COLOR && !isPossibleMove"
       class="button"
     >
       <img
@@ -69,13 +69,19 @@ const figures = {
   align-items: center;
 }
 
+.cell-possible {
+  cursor: pointer;
+}
+
 .button {
+  position: relative;
   height: 100%;
   width: 100%;
   background-color: transparent;
   border: 0;
   padding: 0;
   transition: 200ms linear;
+  z-index: 1;
 }
 
 .button:not(:disabled) {
@@ -87,10 +93,8 @@ const figures = {
 }
 
 .figure {
-  position: relative;
   height: 100%;
   width: 100%;
-  z-index: 1;
 }
 
 .possible-move {
