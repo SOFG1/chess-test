@@ -4,3 +4,5 @@ export type Figure = {
   type: FigureType;
   color: "black" | "white";
 };
+
+export type CellType = Figure | null

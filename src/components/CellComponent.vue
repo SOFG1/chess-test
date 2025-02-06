@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Figure } from "@/types";
+import { CellType } from "@/types";
 import pawn_black from "@/assets/img/figures/pawn_black.svg";
 import pawn_white from "@/assets/img/figures/pawn_white.svg";
 import knight_white from "@/assets/img/figures/knight_white.svg";
@@ -13,7 +13,7 @@ import queen_black from "@/assets/img/figures/queen_black.svg";
 import king_white from "@/assets/img/figures/king_white.svg";
 import king_black from "@/assets/img/figures/king_black.svg";
 
-defineProps<{ figure: Figure | null }>();
+defineProps<{ figure: CellType }>();
 
 const figures = {
   pawn_black,

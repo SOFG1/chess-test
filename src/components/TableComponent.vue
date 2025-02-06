@@ -1,79 +1,13 @@
 <script setup lang="ts">
 import CellComponent from "@/components/CellComponent.vue";
-import { Figure } from "@/types";
-
-const table: (Figure | null)[] = [
-  { type: "rook", color: "black" },
-  { type: "knight", color: "black" },
-  { type: "bishop", color: "black" },
-  { type: "queen", color: "black" },
-  { type: "king", color: "black" },
-  { type: "bishop", color: "black" },
-  { type: "knight", color: "black" },
-  { type: "rook", color: "black" },
-  { type: "pawn", color: "black" },
-  { type: "pawn", color: "black" },
-  { type: "pawn", color: "black" },
-  { type: "pawn", color: "black" },
-  { type: "pawn", color: "black" },
-  { type: "pawn", color: "black" },
-  { type: "pawn", color: "black" },
-  { type: "pawn", color: "black" },
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  null,
-  { type: "pawn", color: "white" },
-  { type: "pawn", color: "white" },
-  { type: "pawn", color: "white" },
-  { type: "pawn", color: "white" },
-  { type: "pawn", color: "white" },
-  { type: "pawn", color: "white" },
-  { type: "pawn", color: "white" },
-  { type: "pawn", color: "white" },
-  { type: "rook", color: "white" },
-  { type: "knight", color: "white" },
-  { type: "bishop", color: "white" },
-  { type: "queen", color: "white" },
-  { type: "king", color: "white" },
-  { type: "bishop", color: "white" },
-  { type: "knight", color: "white" },
-  { type: "rook", color: "white" },
-];
+import { useGameStore } from "@/store/gameStore";
+const gameStore = useGameStore();
 </script>
 
 <template>
   <div class="table">
     <div class="field">
-      <CellComponent v-for="c in table" :figure="c" />
+      <CellComponent v-for="c in gameStore.table" :figure="c" />
     </div>
   </div>
 </template>
