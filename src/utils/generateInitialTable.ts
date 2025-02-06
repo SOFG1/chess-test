@@ -38,8 +38,5 @@ export function generateInitialTable(): CellType[] {
   array[62] = { type: "knight", color: "white" };
   array[63] = { type: "rook", color: "white" };
 
-  array[35] = { type: "bishop", color: "white" };
-
-
   return array;
 }
