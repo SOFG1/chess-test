@@ -7,7 +7,7 @@ const gameStore = useGameStore();
 <template>
   <div class="table">
     <div class="field">
-      <CellComponent v-for="c in gameStore.table" :figure="c" />
+      <CellComponent v-for="(c, i) in gameStore.table" :figure="c" :index="i" />
     </div>
   </div>
 </template>

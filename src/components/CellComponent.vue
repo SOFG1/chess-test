@@ -12,8 +12,15 @@ import queen_white from "@/assets/img/figures/queen_white.svg";
 import queen_black from "@/assets/img/figures/queen_black.svg";
 import king_white from "@/assets/img/figures/king_white.svg";
 import king_black from "@/assets/img/figures/king_black.svg";
+import { useGameStore, USER_COLOR } from "@/store/gameStore";
+import { computed } from "vue";
 
-defineProps<{ figure: CellType }>();
+const props = defineProps<{ figure: CellType; index: number }>();
+const gameStore = useGameStore();
+
+const isPossibleMove = computed(() => {
+  return gameStore.possibleMoves.includes(props.index)
+})
 
 const figures = {
   pawn_black,
@@ -32,31 +39,68 @@ const figures = {
 </script>
 
 <template>
-  <div class="cell">
-    <img
+  <div :class="['cell', {'cell-possible': isPossibleMove}]">
+    <button
       v-if="figure"
-      :src="figures[`${figure.type}_${figure.color}`]"
-      alt="Figure"
-      class="figure"
-    />
+      @click="gameStore.onSelectFigure(index)"
+      :disabled="!gameStore.isUserMove || figure.color !== USER_COLOR"
+      class="button"
+    >
+      <img
+        :src="figures[`${figure.type}_${figure.color}`]"
+        alt="Figure"
+        class="figure"
+      />
+    </button>
+    <span
+      v-if="isPossibleMove"
+      :class="['possible-move', { beat: figure }]"
+    ></span>
   </div>
 </template>
 
 <style scoped>
 .cell {
+  position: relative;
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.figure {
-    height: 100%;
-    width: 100%;
-    cursor: pointer;
-    transition: 200ms linear;
+
+.button {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  transition: 200ms linear;
 }
-.figure:hover {
-    opacity: .6;
+
+.button:not(:disabled) {
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  opacity: 0.6;
+}
+
+.figure {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.possible-move {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(97, 200, 174, 0.4);
+}
+
+.possible-move.beat {
+  background-color: rgba(217, 60, 68, 0.7);
 }
 </style>
