@@ -2,7 +2,9 @@
 import PlayerComponent from "@/components/PlayerComponent.vue";
 import ReadyComponent from "@/components/ReadyComponent.vue";
 import TableComponent from "@/components/TableComponent.vue";
+import { useGameStore } from "@/store/gameStore";
 import UIAlert from "@/UI/UIAlert.vue";
+const gameStore = useGameStore();
 </script>
 
 <template>
@@ -11,10 +13,11 @@ import UIAlert from "@/UI/UIAlert.vue";
     <TableComponent />
     <PlayerComponent name="Вы" :you="true" />
     <UIAlert
+      v-if="!gameStore.playerReady"
       title="Ожидаем готовность комнаты"
       text="Оставайтесь и одержите победу!"
     />
-    <ReadyComponent />
+    <ReadyComponent v-if="!gameStore.playerReady" />
   </div>
 </template>
 

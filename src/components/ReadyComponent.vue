@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { useGameStore } from "@/store/gameStore";
 import UIButton from "@/UI/UIButton.vue";
+
+const { setReady } = useGameStore();
 </script>
 
 <template>
   <div class="block">
     <p class="text">Вы готовы?</p>
-    <UIButton>Готов</UIButton>
+    <UIButton @click="setReady(true)">Готов</UIButton>
   </div>
 </template>
 
