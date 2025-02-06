@@ -10,7 +10,7 @@ function handlePageClick(e: PointerEvent) {
   const isMovableCellClick = (e.target as Element)?.closest(".cell-possible");
   if (!isMovableCellClick) {
     gameStore.setPossibleMoves([]);
-    gameStore.setSelectedFigure(null)
+    gameStore.setSelectedFigure(null);
   }
 }
 </script>
@@ -18,7 +18,7 @@ function handlePageClick(e: PointerEvent) {
 <template>
   <div class="wrapper" @click="handlePageClick">
     <div class="container">
-      <PlayerComponent name="Игорь" />
+      <PlayerComponent name="Компьютер" />
       <TableComponent />
       <PlayerComponent name="Вы" :you="true" />
       <UIAlert
