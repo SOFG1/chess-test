@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import Player from "@/components/Player.vue";
+import PlayerComponent from "@/components/PlayerComponent.vue";
+import TableComponent from "@/components/TableComponent.vue";
 </script>
 
 <template>
   <div class="wrapper">
-    <Player />
-    <Player />
+    <PlayerComponent name="Игорь" />
+    <TableComponent />
+    <PlayerComponent name="Вы" :you="true" />
   </div>
 </template>
 
