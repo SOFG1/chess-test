@@ -2,7 +2,7 @@ import { LEFT_BORDER_CELLS, RIGHT_BORDER_CELLS } from "@/constants";
 import { USER_COLOR } from "@/store/gameStore";
 import { CellType } from "@/types";
 
-export function calculateKnightMoves(
+export function knightMoves(
   table: CellType[],
   figureIndex: number
 ): number[] {
@@ -76,6 +76,5 @@ export function calculateKnightMoves(
   if (valid8) moves.push(step8Cell);
 
   //Result
-  console.log(moves);
   return moves;
 }

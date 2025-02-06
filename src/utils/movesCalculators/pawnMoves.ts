@@ -2,7 +2,7 @@ import { LEFT_BORDER_CELLS, RIGHT_BORDER_CELLS } from "@/constants";
 import { USER_COLOR } from "@/store/gameStore";
 import { CellType } from "@/types";
 
-export function calculatePawnMoves(
+export function pawnMoves(
   table: CellType[],
   figureIndex: number
 ): number[] {
