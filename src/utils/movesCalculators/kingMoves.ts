@@ -1,6 +1,4 @@
 import { CellType } from "@/types";
-import { bishopMoves } from "./bishopMoves";
-import { rookMoves } from "./rookMoves";
 import {
   BOTTOM_BORDER_CELLS,
   LEFT_BORDER_CELLS,
