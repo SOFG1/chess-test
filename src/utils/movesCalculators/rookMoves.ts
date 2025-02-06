@@ -12,8 +12,12 @@ export function rookMoves(table: CellType[], figureIndex: number): number[] {
   //Left moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - i;
-    if (LEFT_BORDER_CELLS.includes(stepCell + 1)) break;
     if (table[stepCell]?.color === USER_COLOR) break;
+    if (LEFT_BORDER_CELLS.includes(figureIndex)) break;
+    if (LEFT_BORDER_CELLS.includes(stepCell)) {
+      moves.push(stepCell);
+      break;
+    }
     if (table[stepCell]) {
       moves.push(stepCell);
       break;
@@ -24,8 +28,12 @@ export function rookMoves(table: CellType[], figureIndex: number): number[] {
   //Right moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex + i;
-    if (RIGHT_BORDER_CELLS.includes(stepCell - 1)) break;
+    if (RIGHT_BORDER_CELLS.includes(figureIndex)) break;
     if (table[stepCell]?.color === USER_COLOR) break;
+    if (RIGHT_BORDER_CELLS.includes(stepCell)) {
+      moves.push(stepCell);
+      break;
+    }
     if (table[stepCell]) {
       moves.push(stepCell);
       break;
@@ -36,8 +44,12 @@ export function rookMoves(table: CellType[], figureIndex: number): number[] {
   //Top moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - i * 8;
-    if (TOP_BORDER_CELLS.includes(stepCell + 8)) break;
+    if (TOP_BORDER_CELLS.includes(figureIndex)) break;
     if (table[stepCell]?.color === USER_COLOR) break;
+    if (TOP_BORDER_CELLS.includes(stepCell)) {
+      moves.push(stepCell);
+      break;
+    }
     if (table[stepCell]) {
       moves.push(stepCell);
       break;
@@ -48,8 +60,12 @@ export function rookMoves(table: CellType[], figureIndex: number): number[] {
   //Bottom moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex + i * 8;
-    if (BOTTOM_BORDER_CELLS.includes(stepCell - 8)) break;
+    if (BOTTOM_BORDER_CELLS.includes(figureIndex)) break;
     if (table[stepCell]?.color === USER_COLOR) break;
+    if (BOTTOM_BORDER_CELLS.includes(stepCell)) {
+      moves.push(stepCell);
+      break;
+    }
     if (table[stepCell]) {
       moves.push(stepCell);
       break;
