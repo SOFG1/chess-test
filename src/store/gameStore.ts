@@ -11,6 +11,7 @@ export const useGameStore = defineStore("gameStore", () => {
   const turn = ref<"black" | "white">("black");
   const table = ref<CellType[]>(generateInitialTable());
   const possibleMoves = ref<number[]>([]);
+  const selectedFigure = ref<number | null>(null);
 
   const isUserMove = computed(() => {
     return playerReady.value && turn.value === USER_COLOR;
@@ -24,12 +25,25 @@ export const useGameStore = defineStore("gameStore", () => {
 
   function onSelectFigure(index: number) {
     if (!isUserMove.value) return;
+    setSelectedFigure(index);
     const moves = calculatePossibleMoves(table.value, index);
     setPossibleMoves(moves);
   }
 
   function setPossibleMoves(moves: number[]) {
     possibleMoves.value = moves;
+  }
+
+  function setSelectedFigure(val: number | null) {
+    selectedFigure.value = val;
+  }
+
+  function moveFigure(cellIndex: number) {
+    if (!possibleMoves.value.includes(cellIndex)) return;
+    table.value[cellIndex] = table.value[selectedFigure.value];
+    table.value[selectedFigure.value] = null;
+    setSelectedFigure(null);
+    setPossibleMoves([]);
   }
 
   return {
@@ -40,6 +54,8 @@ export const useGameStore = defineStore("gameStore", () => {
     isUserMove,
     onSelectFigure,
     setReady,
-    setPossibleMoves
+    setPossibleMoves,
+    setSelectedFigure,
+    moveFigure,
   };
 });

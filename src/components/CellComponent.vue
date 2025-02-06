@@ -22,6 +22,25 @@ const isPossibleMove = computed(() => {
   return gameStore.possibleMoves.includes(props.index);
 });
 
+const isDisabled = computed(() => {
+  if (!gameStore.isUserMove) return true;
+  if (!isPossibleMove.value && props?.figure?.color !== USER_COLOR) return true;
+  return false;
+});
+
+function handleClick(e: PointerEvent) {
+  //Select figure
+  if (props?.figure?.color === USER_COLOR) {
+    gameStore.onSelectFigure(props.index);
+    e.stopPropagation();
+    return;
+  }
+  //Move figure
+  if (isPossibleMove) {
+    gameStore.moveFigure(props.index);
+  }
+}
+
 const figures = {
   pawn_black,
   pawn_white,
@@ -39,24 +58,21 @@ const figures = {
 </script>
 
 <template>
-  <div :class="['cell', { 'cell-possible': isPossibleMove }]">
-    <button
+  <button
+    :class="[
+      'cell',
+      { 'cell-possible': isPossibleMove, beat: figure, disabled: isDisabled },
+    ]"
+    @click="handleClick"
+  >
+    <span>{{ index }}</span>
+    <img
       v-if="figure"
-      @click.stop="() => gameStore.onSelectFigure(index)"
-      :disabled="!gameStore.isUserMove || figure.color !== USER_COLOR && !isPossibleMove"
-      class="button"
-    >
-      <img
-        :src="figures[`${figure.type}_${figure.color}`]"
-        alt="Figure"
-        class="figure"
-      />
-    </button>
-    <span
-      v-if="isPossibleMove"
-      :class="['possible-move', { beat: figure }]"
-    ></span>
-  </div>
+      :src="figures[`${figure.type}_${figure.color}`]"
+      alt="Figure"
+      class="figure"
+    />
+  </button>
 </template>
 
 <style scoped>
@@ -67,44 +83,37 @@ const figures = {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.cell-possible {
-  cursor: pointer;
-}
-
-.button {
-  position: relative;
-  height: 100%;
-  width: 100%;
   background-color: transparent;
   border: 0;
   padding: 0;
   transition: 200ms linear;
-  z-index: 1;
 }
 
-.button:not(:disabled) {
+.cell-possible {
+  background-color: rgba(97, 200, 174, 0.4);
   cursor: pointer;
 }
 
-.button:hover:not(:disabled) {
+.cell-possible.beat {
+  background-color: rgba(217, 60, 68, 0.7);
+}
+
+.cell:not(.disabled) {
+  cursor: pointer;
+}
+
+.cell:hover:not(.disabled) {
   opacity: 0.6;
 }
 
 .figure {
   height: 100%;
   width: 100%;
+  z-index: 1;
 }
 
-.possible-move {
+span {
+  color: #fff;
   position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(97, 200, 174, 0.4);
-}
-
-.possible-move.beat {
-  background-color: rgba(217, 60, 68, 0.7);
 }
 </style>
