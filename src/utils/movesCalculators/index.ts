@@ -4,6 +4,7 @@ import { pawnMoves } from "./pawnMoves";
 import { bishopMoves } from "./bishopMoves";
 import { rookMoves } from "./rookMoves";
 import { queenMoves } from "./queenMoves";
+import { kingMoves } from "./kingMoves";
 
 export function calculatePossibleMoves(
   table: CellType[],
@@ -25,8 +26,4 @@ export function calculatePossibleMoves(
     case "king":
       return kingMoves(table, figureIndex);
   }
-}
-
-function kingMoves(table: CellType[], figureIndex: number): number[] {
-  return [44, 36, 12];
 }
