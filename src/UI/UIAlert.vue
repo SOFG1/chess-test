@@ -21,6 +21,7 @@ defineProps<{ title: string; text?: string }>();
   border-radius: 20px;
   color: #F9F1DF;
   text-align: center;
+  z-index: 100;
 }
 
 .title {
