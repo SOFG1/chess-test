@@ -1,5 +1,6 @@
 import { CellType } from "@/types";
 import { calculatePawnMoves } from "./calculatePawnMoves";
+import { calculateKnightMoves } from "./calculateKnightMoves";
 
 export function calculatePossibleMoves(
   table: CellType[],
@@ -11,7 +12,7 @@ export function calculatePossibleMoves(
     case "pawn":
       return calculatePawnMoves(table, figureIndex);
     case "knight":
-      return knightMoves(table, figureIndex);
+      return calculateKnightMoves(table, figureIndex);
     case "bishop":
       return bishopMoves(table, figureIndex);
     case "rook":
@@ -23,9 +24,6 @@ export function calculatePossibleMoves(
   }
 }
 
-function knightMoves(table: CellType[], figureIndex: number): number[] {
-  return [44, 36, 12];
-}
 
 function bishopMoves(table: CellType[], figureIndex: number): number[] {
   return [44, 36, 12];
