@@ -1,5 +1,5 @@
 import { CellType } from "@/types";
-import { calculatePossibleMoves } from "@/utils/calculatePossibleMoves";
+import { calculatePossibleMoves } from "@/utils/movesCalculators";
 import { generateInitialTable } from "@/utils/generateInitialTable";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
