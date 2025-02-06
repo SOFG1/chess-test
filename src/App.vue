@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import GamePage from './pages/GamePage.vue';
-
+import GamePage from '@/pages/GamePage.vue';
+import HelloWorld from '@/components/HelloWorld.vue';
 
 
 </script>
