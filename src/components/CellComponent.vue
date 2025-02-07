@@ -82,7 +82,6 @@ const figures = {
     ]"
     @click="handleClick"
   >
-    <span>{{ index }}</span>
     <img
       v-if="figure"
       :src="figures[`${figure.type}_${figure.color}`]"
@@ -135,10 +134,5 @@ const figures = {
   height: 53px;
   width: 51px;
   z-index: 1;
-}
-
-span {
-  color: #fff;
-  position: absolute;
 }
 </style>
