@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import GameAlertsComponent from "@/components/GameAlertsComponent.vue";
 import PlayerComponent from "@/components/PlayerComponent.vue";
 import ReadyComponent from "@/components/ReadyComponent.vue";
 import TableComponent from "@/components/TableComponent.vue";
 import { useGameStore } from "@/store/gameStore";
-import UIAlert from "@/UI/UIAlert.vue";
 const gameStore = useGameStore();
 
 function handlePageClick(e: PointerEvent) {
@@ -20,11 +20,7 @@ function handlePageClick(e: PointerEvent) {
       <PlayerComponent name="Компьютер" />
       <TableComponent />
       <PlayerComponent name="Вы" :you="true" />
-      <UIAlert
-        v-if="!gameStore.playerReady"
-        title="Ожидаем готовность комнаты"
-        text="Оставайтесь и одержите победу!"
-      />
+      <GameAlertsComponent />
       <ReadyComponent v-if="!gameStore.playerReady" />
     </div>
   </div>

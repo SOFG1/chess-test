@@ -5,8 +5,8 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { moveFigureOnTable } from "@/utils/moveFigureOnTable";
 import { getTableFigures } from "@/utils/getTableFigures";
+import { USER_COLOR } from "@/constants";
 
-const USER_COLOR = "white";
 
 export const useGameStore = defineStore("gameStore", () => {
   const playerReady = ref(false);
@@ -83,6 +83,7 @@ export const useGameStore = defineStore("gameStore", () => {
     isUserMove,
     selectedFigure,
     isCheck,
+    allPosibleMoves,
     onSelectFigure,
     setReady,
     setSelectedFigure,

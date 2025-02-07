@@ -1,14 +1,32 @@
 <script setup lang="ts">
-import { useGameStore, USER_COLOR } from "@/store/gameStore";
+import { USER_COLOR } from "@/constants";
+import { useGameStore } from "@/store/gameStore";
 import UIAlert from "@/UI/UIAlert.vue";
 import { computed } from "vue";
 
 const gameStore = useGameStore();
 
 const gameResult = computed<string | undefined>(() => {
-  if (!gameStore.isCheck || gameStore.allPosibleMoves.count) return;
-  if (gameStore.turn == USER_COLOR) return "Вы проиграли.";
-  return "Поздравляем! Вы выиграли";
+  //Won
+  if (
+    gameStore.isCheck &&
+    !gameStore.allPosibleMoves.count &&
+    gameStore.turn === USER_COLOR
+  ) {
+    return "Мат! Вы проиграли.";
+  }
+  //Lost
+  if (
+    gameStore.isCheck &&
+    !gameStore.allPosibleMoves.count &&
+    gameStore.turn !== USER_COLOR
+  ) {
+    return "Мат! Поздравляем Вы выиграли!";
+  }
+  //Draw
+  if (!gameStore.allPosibleMoves.count) {
+    return "Ничья. Пат!";
+  }
 });
 </script>
 
