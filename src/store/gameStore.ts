@@ -3,6 +3,7 @@ import { calculatePossibleMoves } from "@/utils/movesCalculators";
 import { generateInitialTable } from "@/utils/generateInitialTable";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
+import { moveFigureOnTable } from "@/utils/moveFigureOnTable";
 
 const USER_COLOR = "white";
 
@@ -26,8 +27,12 @@ export const useGameStore = defineStore("gameStore", () => {
   function onSelectFigure(index: number) {
     // if (!isUserMove.value) return;
     setSelectedFigure(index);
-    const { moves, beatsKing } = calculatePossibleMoves(table.value, index, turn.value);
-    console.log(beatsKing)
+    const { moves, beatsKing } = calculatePossibleMoves(
+      table.value,
+      index,
+      turn.value
+    );
+    console.log(beatsKing);
     setPossibleMoves(moves);
   }
 
@@ -45,8 +50,11 @@ export const useGameStore = defineStore("gameStore", () => {
 
   function moveFigure(cellIndex: number) {
     if (!possibleMoves.value.includes(cellIndex)) return;
-    table.value[cellIndex] = table.value[selectedFigure.value];
-    table.value[selectedFigure.value] = null;
+    table.value = moveFigureOnTable(
+      table.value,
+      selectedFigure.value,
+      cellIndex
+    );
     setSelectedFigure(null);
     setPossibleMoves([]);
     switchTurn(); //Next player's move
