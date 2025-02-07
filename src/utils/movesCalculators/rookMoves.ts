@@ -7,8 +7,14 @@ import {
 import { CellType, ColorType } from "@/types";
 import { CalculatorReturnType } from "./types";
 
-export function rookMoves(table: CellType[], figureIndex: number, color: ColorType): CalculatorReturnType {
+export function rookMoves(
+  table: CellType[],
+  figureIndex: number,
+  color: ColorType
+): CalculatorReturnType {
   const moves = [];
+  let beatsKing = false;
+
   //Left moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - i;
@@ -19,6 +25,7 @@ export function rookMoves(table: CellType[], figureIndex: number, color: ColorTy
       break;
     }
     if (table[stepCell]) {
+      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -35,6 +42,7 @@ export function rookMoves(table: CellType[], figureIndex: number, color: ColorTy
       break;
     }
     if (table[stepCell]) {
+      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -51,6 +59,7 @@ export function rookMoves(table: CellType[], figureIndex: number, color: ColorTy
       break;
     }
     if (table[stepCell]) {
+      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -67,11 +76,12 @@ export function rookMoves(table: CellType[], figureIndex: number, color: ColorTy
       break;
     }
     if (table[stepCell]) {
+      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
     moves.push(stepCell);
   }
 
-  return {moves, beatsKing: false};
+  return { moves, beatsKing: false };
 }
