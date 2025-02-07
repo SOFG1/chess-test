@@ -24,7 +24,7 @@ export const useGameStore = defineStore("gameStore", () => {
   }
 
   function onSelectFigure(index: number) {
-    if (!isUserMove.value) return;
+    // if (!isUserMove.value) return;
     setSelectedFigure(index);
     const moves = calculatePossibleMoves(table.value, index, turn.value);
     setPossibleMoves(moves);
@@ -44,6 +44,7 @@ export const useGameStore = defineStore("gameStore", () => {
     table.value[selectedFigure.value] = null;
     setSelectedFigure(null);
     setPossibleMoves([]);
+    turn.value = turn.value === "white" ? "black" : "white"
   }
 
   return {
