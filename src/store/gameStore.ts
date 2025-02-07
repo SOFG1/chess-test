@@ -76,7 +76,7 @@ export const useGameStore = defineStore("gameStore", () => {
   }
 
   async function AIMove() {
-    await delay(2000);
+    await delay(700);
     const moves = [];
     Object.keys(allPosibleMoves.value.moves).forEach((key: string) => {
       allPosibleMoves.value.moves[key].forEach((move: number) => {
@@ -86,7 +86,7 @@ export const useGameStore = defineStore("gameStore", () => {
     if(!moves.length) return
     const randomMove = moves[Math.floor(Math.random() * moves.length)];
     setSelectedFigure(randomMove.from);
-    await delay(300);
+    await delay(1300);
     moveFigure(randomMove.to);
   }
 
