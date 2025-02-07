@@ -12,7 +12,7 @@ import queen_white from "@/assets/img/figures/queen_white.svg";
 import queen_black from "@/assets/img/figures/queen_black.svg";
 import king_white from "@/assets/img/figures/king_white.svg";
 import king_black from "@/assets/img/figures/king_black.svg";
-import { useGameStore, USER_COLOR } from "@/store/gameStore";
+import { useGameStore } from "@/store/gameStore";
 import { computed } from "vue";
 
 const props = defineProps<{ figure: CellType; index: number }>();
@@ -24,13 +24,13 @@ const isPossibleMove = computed(() => {
 
 const isDisabled = computed(() => {
   if (!gameStore.isUserMove) return true;
-  if (!isPossibleMove.value && props?.figure?.color !== USER_COLOR) return true;
+  if (!isPossibleMove.value && props?.figure?.color !== gameStore.turn) return true;
   return false;
 });
 
 function handleClick(e: PointerEvent) {
   //Select figure
-  if (props?.figure?.color === USER_COLOR) {
+  if (props?.figure?.color === gameStore.turn) {
     gameStore.onSelectFigure(props.index);
     e.stopPropagation();
     return;

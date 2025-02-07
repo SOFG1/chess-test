@@ -1,4 +1,4 @@
-import { CellType } from "@/types";
+import { CellType, ColorType } from "@/types";
 import { knightMoves } from "./knightMoves";
 import { pawnMoves } from "./pawnMoves";
 import { bishopMoves } from "./bishopMoves";
@@ -8,22 +8,23 @@ import { kingMoves } from "./kingMoves";
 
 export function calculatePossibleMoves(
   table: CellType[],
-  figureIndex: number
+  figureIndex: number,
+  color: ColorType
 ): number[] {
   const figureType = table[figureIndex].type;
 
   switch (figureType) {
     case "pawn":
-      return pawnMoves(table, figureIndex);
+      return pawnMoves(table, figureIndex, color);
     case "knight":
-      return knightMoves(table, figureIndex);
+      return knightMoves(table, figureIndex, color);
     case "bishop":
-      return bishopMoves(table, figureIndex);
+      return bishopMoves(table, figureIndex, color);
     case "rook":
-      return rookMoves(table, figureIndex);
+      return rookMoves(table, figureIndex, color);
     case "queen":
-      return queenMoves(table, figureIndex);
+      return queenMoves(table, figureIndex, color);
     case "king":
-      return kingMoves(table, figureIndex);
+      return kingMoves(table, figureIndex, color);
   }
 }

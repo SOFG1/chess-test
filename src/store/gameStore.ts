@@ -1,14 +1,14 @@
-import { CellType } from "@/types";
+import { CellType, ColorType } from "@/types";
 import { calculatePossibleMoves } from "@/utils/movesCalculators";
 import { generateInitialTable } from "@/utils/generateInitialTable";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 
-export const USER_COLOR = "white";
+const USER_COLOR = "white";
 
 export const useGameStore = defineStore("gameStore", () => {
   const playerReady = ref(false);
-  const turn = ref<"black" | "white">("black");
+  const turn = ref<ColorType>("black");
   const table = ref<CellType[]>(generateInitialTable());
   const possibleMoves = ref<number[]>([]);
   const selectedFigure = ref<number | null>(null);
@@ -26,7 +26,7 @@ export const useGameStore = defineStore("gameStore", () => {
   function onSelectFigure(index: number) {
     if (!isUserMove.value) return;
     setSelectedFigure(index);
-    const moves = calculatePossibleMoves(table.value, index);
+    const moves = calculatePossibleMoves(table.value, index, turn.value);
     setPossibleMoves(moves);
   }
 

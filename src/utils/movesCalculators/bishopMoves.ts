@@ -4,16 +4,15 @@ import {
   RIGHT_BORDER_CELLS,
   TOP_BORDER_CELLS,
 } from "@/constants";
-import { USER_COLOR } from "@/store/gameStore";
-import { CellType } from "@/types";
+import { CellType, ColorType } from "@/types";
 
-export function bishopMoves(table: CellType[], figureIndex: number): number[] {
+export function bishopMoves(table: CellType[], figureIndex: number, color: ColorType): number[] {
   const moves = [];
 
   //1. top/left moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - 9 * i;
-    if (table[stepCell]?.color === USER_COLOR) break;
+    if (table[stepCell]?.color === color) break;
     if (TOP_BORDER_CELLS.includes(figureIndex)) break;
     if (LEFT_BORDER_CELLS.includes(figureIndex)) break;
     if (TOP_BORDER_CELLS.includes(stepCell)) {
@@ -34,7 +33,7 @@ export function bishopMoves(table: CellType[], figureIndex: number): number[] {
   //2. top/right moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - 7 * i;
-    if (table[stepCell]?.color === USER_COLOR) break;
+    if (table[stepCell]?.color === color) break;
     if (TOP_BORDER_CELLS.includes(figureIndex)) break;
     if (RIGHT_BORDER_CELLS.includes(figureIndex)) break;
     if (TOP_BORDER_CELLS.includes(stepCell)) {
@@ -55,7 +54,7 @@ export function bishopMoves(table: CellType[], figureIndex: number): number[] {
   //3. bottom/left moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex + 7 * i;
-    if (table[stepCell]?.color === USER_COLOR) break;
+    if (table[stepCell]?.color === color) break;
     if (BOTTOM_BORDER_CELLS.includes(figureIndex)) break;
     if (LEFT_BORDER_CELLS.includes(figureIndex)) break;
     if (BOTTOM_BORDER_CELLS.includes(stepCell)) {
@@ -76,7 +75,7 @@ export function bishopMoves(table: CellType[], figureIndex: number): number[] {
   //4. bottom/right moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex + 9 * i;
-    if (table[stepCell]?.color === USER_COLOR) break;
+    if (table[stepCell]?.color === color) break;
     if (BOTTOM_BORDER_CELLS.includes(figureIndex)) break;
     if (RIGHT_BORDER_CELLS.includes(figureIndex)) break;
     if (BOTTOM_BORDER_CELLS.includes(stepCell)) {

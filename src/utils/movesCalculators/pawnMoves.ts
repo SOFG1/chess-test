@@ -3,10 +3,9 @@ import {
   RIGHT_BORDER_CELLS,
   TOP_BORDER_CELLS,
 } from "@/constants";
-import { USER_COLOR } from "@/store/gameStore";
-import { CellType } from "@/types";
+import { CellType, ColorType } from "@/types";
 
-export function pawnMoves(table: CellType[], figureIndex: number): number[] {
+export function pawnMoves(table: CellType[], figureIndex: number, color: ColorType): number[] {
   const moves = [];
   //1. Pawn frist step (top cell)
   let valid1 = true;
@@ -28,7 +27,7 @@ export function pawnMoves(table: CellType[], figureIndex: number): number[] {
   const step3Cell = figureIndex - 9;
   if (LEFT_BORDER_CELLS.includes(figureIndex)) valid3 = false;
   if (!table[step3Cell]) valid3 = false;
-  if (table[step3Cell]?.color === USER_COLOR) valid3 = false;
+  if (table[step3Cell]?.color === color) valid3 = false;
   if (valid3) moves.push(step3Cell);
 
   //4. Beat right figure
@@ -36,7 +35,7 @@ export function pawnMoves(table: CellType[], figureIndex: number): number[] {
   const step4Cell = figureIndex - 7;
   if (RIGHT_BORDER_CELLS.includes(figureIndex)) valid4 = false;
   if (!table[step4Cell]) valid4 = false;
-  if (table[step4Cell]?.color === USER_COLOR) valid4 = false;
+  if (table[step4Cell]?.color === color) valid4 = false;
   if (valid4) moves.push(step4Cell);
 
   //Result
