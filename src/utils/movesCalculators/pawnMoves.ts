@@ -23,6 +23,7 @@ function whitePawnMoves(
   color: ColorType
 ): CalculatorReturnType {
   const moves = [];
+  let beatsKing = false;
   //1. Pawn frist step (top cell)
   let valid1 = true;
   const topCell = figureIndex - 8;
@@ -44,6 +45,9 @@ function whitePawnMoves(
   if (!table[step3Cell]) valid3 = false;
   if (table[step3Cell]?.color === color) valid3 = false;
   if (valid3) moves.push(step3Cell);
+  if (table[step3Cell]?.color !== color && table[step3Cell]?.type === "king") {
+    beatsKing = true;
+  }
 
   //4. Beat right figure
   let valid4 = true;
@@ -52,9 +56,12 @@ function whitePawnMoves(
   if (!table[step4Cell]) valid4 = false;
   if (table[step4Cell]?.color === color) valid4 = false;
   if (valid4) moves.push(step4Cell);
+  if (table[step4Cell]?.color !== color && table[step4Cell]?.type === "king") {
+    beatsKing = true;
+  }
 
   //Result
-  return {moves, beatsKing: false};
+  return { moves, beatsKing };
 }
 
 //Black
@@ -64,6 +71,7 @@ function blackPawnMoves(
   color: ColorType
 ): CalculatorReturnType {
   const moves = [];
+  let beatsKing = false;
   //1. Pawn frist step (bottom cell)
   let valid1 = true;
   const topCell = figureIndex + 8;
@@ -85,6 +93,9 @@ function blackPawnMoves(
   if (!table[step3Cell]) valid3 = false;
   if (table[step3Cell]?.color === color) valid3 = false;
   if (valid3) moves.push(step3Cell);
+  if (table[step3Cell]?.color !== color && table[step3Cell]?.type === "king") {
+    beatsKing = true;
+  }
 
   //4. Beat right figure
   let valid4 = true;
@@ -93,7 +104,10 @@ function blackPawnMoves(
   if (!table[step4Cell]) valid4 = false;
   if (table[step4Cell]?.color === color) valid4 = false;
   if (valid4) moves.push(step4Cell);
+  if (table[step4Cell]?.color !== color && table[step4Cell]?.type === "king") {
+    beatsKing = true;
+  }
 
   //Result
-  return {moves, beatsKing: false};
+  return { moves, beatsKing };
 }
