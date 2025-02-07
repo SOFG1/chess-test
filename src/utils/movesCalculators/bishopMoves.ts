@@ -13,6 +13,7 @@ export function bishopMoves(
   color: ColorType
 ): CalculatorReturnType {
   const moves = [];
+  let beatsKing = false;
 
   //1. top/left moves
   for (let i = 1; i < 8; i++) {
@@ -29,6 +30,7 @@ export function bishopMoves(
       break;
     }
     if (table[stepCell]) {
+      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -50,6 +52,7 @@ export function bishopMoves(
       break;
     }
     if (table[stepCell]) {
+      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -71,6 +74,7 @@ export function bishopMoves(
       break;
     }
     if (table[stepCell]) {
+      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -92,10 +96,11 @@ export function bishopMoves(
       break;
     }
     if (table[stepCell]) {
+      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
     moves.push(stepCell);
   }
-  return { moves, beatsKing: false };
+  return { moves, beatsKing };
 }
