@@ -65,6 +65,7 @@ export const useGameStore = defineStore("gameStore", () => {
     possibleMoves,
     table,
     isUserMove,
+    selectedFigure,
     isCheck,
     onSelectFigure,
     setReady,

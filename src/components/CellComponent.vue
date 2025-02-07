@@ -32,8 +32,12 @@ const isDisabled = computed(() => {
 });
 
 const isCheck = computed(() => {
-  return gameStore.isCheck && props.figure?.color === gameStore.turn && props.figure.type === "king"
-})
+  return (
+    gameStore.isCheck &&
+    props.figure?.color === gameStore.turn &&
+    props.figure.type === "king"
+  );
+});
 
 function handleClick(e: PointerEvent) {
   //Select figure
@@ -68,7 +72,13 @@ const figures = {
   <button
     :class="[
       'cell',
-      { 'possible': isPossibleMove, beat: figure, disabled: isDisabled, checked: isCheck },
+      {
+        possible: isPossibleMove,
+        beat: figure,
+        disabled: isDisabled,
+        checked: isCheck,
+        selected: gameStore.selectedFigure === index,
+      },
     ]"
     @click="handleClick"
   >
@@ -85,8 +95,8 @@ const figures = {
 <style scoped>
 .cell {
   position: relative;
-  height: 100%;
-  width: 100%;
+  height: 53px;
+  width: 51px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,6 +119,10 @@ const figures = {
   background-color: rgba(217, 60, 68, 0.915);
 }
 
+.selected {
+  border: 1px solid #000;
+}
+
 .cell:not(.disabled) {
   cursor: pointer;
 }
@@ -118,8 +132,8 @@ const figures = {
 }
 
 .figure {
-  height: 100%;
-  width: 100%;
+  height: 53px;
+  width: 51px;
   z-index: 1;
 }
 
