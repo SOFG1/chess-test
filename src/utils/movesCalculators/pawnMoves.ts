@@ -6,7 +6,7 @@ import {
 } from "@/constants";
 import { CellType, ColorType } from "@/types";
 import { CalculatorReturnType } from "./types";
-import { checkKingCell } from "./checkKingCell";
+import { checkKingCell } from "../checkKingCell";
 
 export function pawnMoves(
   table: CellType[],

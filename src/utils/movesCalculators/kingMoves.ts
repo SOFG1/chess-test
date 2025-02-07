@@ -6,7 +6,7 @@ import {
   TOP_BORDER_CELLS,
 } from "@/constants";
 import { CalculatorReturnType } from "./types";
-import { checkKingCell } from "./checkKingCell";
+import { checkKingCell } from "../checkKingCell";
 
 export function kingMoves(
   table: CellType[],
