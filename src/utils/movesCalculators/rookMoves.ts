@@ -83,5 +83,5 @@ export function rookMoves(
     moves.push(stepCell);
   }
 
-  return { moves, beatsKing: false };
+  return { moves, beatsKing };
 }
