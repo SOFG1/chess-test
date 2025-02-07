@@ -6,6 +6,7 @@ import {
 } from "@/constants";
 import { CellType, ColorType } from "@/types";
 import { CalculatorReturnType } from "./types";
+import { checkKingCell } from "./checkKingCell";
 
 export function rookMoves(
   table: CellType[],
@@ -18,6 +19,7 @@ export function rookMoves(
   //Left moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - i;
+    if (checkKingCell(table[stepCell], color)) beatsKing = true; //Check beats king or not
     if (table[stepCell]?.color === color) break;
     if (LEFT_BORDER_CELLS.includes(figureIndex)) break;
     if (LEFT_BORDER_CELLS.includes(stepCell)) {
@@ -25,7 +27,6 @@ export function rookMoves(
       break;
     }
     if (table[stepCell]) {
-      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -35,6 +36,7 @@ export function rookMoves(
   //Right moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex + i;
+    if (checkKingCell(table[stepCell], color)) beatsKing = true; //Check beats king or not
     if (RIGHT_BORDER_CELLS.includes(figureIndex)) break;
     if (table[stepCell]?.color === color) break;
     if (RIGHT_BORDER_CELLS.includes(stepCell)) {
@@ -42,7 +44,6 @@ export function rookMoves(
       break;
     }
     if (table[stepCell]) {
-      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -52,6 +53,7 @@ export function rookMoves(
   //Top moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - i * 8;
+    if (checkKingCell(table[stepCell], color)) beatsKing = true; //Check beats king or not
     if (TOP_BORDER_CELLS.includes(figureIndex)) break;
     if (table[stepCell]?.color === color) break;
     if (TOP_BORDER_CELLS.includes(stepCell)) {
@@ -59,7 +61,6 @@ export function rookMoves(
       break;
     }
     if (table[stepCell]) {
-      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -69,6 +70,7 @@ export function rookMoves(
   //Bottom moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex + i * 8;
+    if (checkKingCell(table[stepCell], color)) beatsKing = true; //Check beats king or not
     if (BOTTOM_BORDER_CELLS.includes(figureIndex)) break;
     if (table[stepCell]?.color === color) break;
     if (BOTTOM_BORDER_CELLS.includes(stepCell)) {
@@ -76,7 +78,6 @@ export function rookMoves(
       break;
     }
     if (table[stepCell]) {
-      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }

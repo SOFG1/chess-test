@@ -6,6 +6,7 @@ import {
 } from "@/constants";
 import { CellType, ColorType } from "@/types";
 import { CalculatorReturnType } from "./types";
+import { checkKingCell } from "./checkKingCell";
 
 export function bishopMoves(
   table: CellType[],
@@ -18,6 +19,7 @@ export function bishopMoves(
   //1. top/left moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - 9 * i;
+    if (checkKingCell(table[stepCell], color)) beatsKing = true; //Check beats king or not
     if (table[stepCell]?.color === color) break;
     if (TOP_BORDER_CELLS.includes(figureIndex)) break;
     if (LEFT_BORDER_CELLS.includes(figureIndex)) break;
@@ -30,7 +32,6 @@ export function bishopMoves(
       break;
     }
     if (table[stepCell]) {
-      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -40,6 +41,7 @@ export function bishopMoves(
   //2. top/right moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex - 7 * i;
+    if (checkKingCell(table[stepCell], color)) beatsKing = true; //Check beats king or not
     if (table[stepCell]?.color === color) break;
     if (TOP_BORDER_CELLS.includes(figureIndex)) break;
     if (RIGHT_BORDER_CELLS.includes(figureIndex)) break;
@@ -52,7 +54,6 @@ export function bishopMoves(
       break;
     }
     if (table[stepCell]) {
-      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -62,6 +63,7 @@ export function bishopMoves(
   //3. bottom/left moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex + 7 * i;
+    if (checkKingCell(table[stepCell], color)) beatsKing = true; //Check beats king or not
     if (table[stepCell]?.color === color) break;
     if (BOTTOM_BORDER_CELLS.includes(figureIndex)) break;
     if (LEFT_BORDER_CELLS.includes(figureIndex)) break;
@@ -74,7 +76,6 @@ export function bishopMoves(
       break;
     }
     if (table[stepCell]) {
-      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
@@ -84,6 +85,7 @@ export function bishopMoves(
   //4. bottom/right moves
   for (let i = 1; i < 8; i++) {
     const stepCell = figureIndex + 9 * i;
+    if (checkKingCell(table[stepCell], color)) beatsKing = true; //Check beats king or not
     if (table[stepCell]?.color === color) break;
     if (BOTTOM_BORDER_CELLS.includes(figureIndex)) break;
     if (RIGHT_BORDER_CELLS.includes(figureIndex)) break;
@@ -96,7 +98,6 @@ export function bishopMoves(
       break;
     }
     if (table[stepCell]) {
-      if (table[stepCell].type === "king") beatsKing = true;
       moves.push(stepCell);
       break;
     }
