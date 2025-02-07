@@ -1,22 +1,34 @@
 <script setup lang="ts">
 import avatarImg from "@/assets/img/avatar.png";
+import { USER_COLOR } from "@/constants";
+import { useGameStore } from "@/store/gameStore";
+import { computed } from "vue";
 
-defineProps<{ name: string, you?: boolean }>();
+const props = defineProps<{ name: string; you?: boolean }>();
+const gameStore = useGameStore();
+const text = computed(() => {
+  if (gameStore.turn === USER_COLOR && props.you) return "Ваш ход";
+  if (gameStore.turn !== USER_COLOR && !props.you) return "Думает...";
+});
 </script>
 
 <template>
-  <div :class="['player', {'reverse': you}]">
+  <div :class="['player', { reverse: you }]">
     <img :src="avatarImg" alt="Avatar" class="avatar" />
     <p class="name">{{ name }}</p>
+    <p class="text">{{ text }}</p>
   </div>
 </template>
 
 <style scoped>
 .player {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  height: 120px;
+  padding-bottom: 20px;
 }
 
 .avatar {
@@ -38,5 +50,11 @@ defineProps<{ name: string, you?: boolean }>();
 
 .reverse {
   flex-direction: column-reverse;
+}
+
+.text {
+  position: absolute;
+  color: #61c8af;
+  bottom: 0;
 }
 </style>

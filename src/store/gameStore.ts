@@ -6,6 +6,7 @@ import { computed, ref, watch } from "vue";
 import { moveFigureOnTable } from "@/utils/moveFigureOnTable";
 import { getTableFigures } from "@/utils/getTableFigures";
 import { USER_COLOR } from "@/constants";
+import { delay } from "@/utils/delay";
 
 export const useGameStore = defineStore("gameStore", () => {
   const playerReady = ref(false);
@@ -51,7 +52,7 @@ export const useGameStore = defineStore("gameStore", () => {
   }
 
   function onSelectFigure(index: number) {
-    // if (!isUserMove.value) return;
+    if (!isUserMove.value) return;
     setSelectedFigure(index);
   }
 
@@ -74,20 +75,21 @@ export const useGameStore = defineStore("gameStore", () => {
     switchTurn(); //Next player's move
   }
 
-  function AIMove() {
-    setTimeout(() => {
-      const moves = [];
-      Object.keys(allPosibleMoves.value.moves).forEach((key: string) => {
-        allPosibleMoves.value.moves[key].forEach((move: number) => {
-          moves.push({ from: Number(key), to: move });
-        });
+  async function AIMove() {
+    await delay(2500);
+    const moves = [];
+    Object.keys(allPosibleMoves.value.moves).forEach((key: string) => {
+      allPosibleMoves.value.moves[key].forEach((move: number) => {
+        moves.push({ from: Number(key), to: move });
       });
-      console.log(moves)
-    }, 2000);
+    });
+    const randomMove = moves[Math.floor(Math.random() * moves.length)];
+    setSelectedFigure(randomMove.from);
+    await delay(300);
+    moveFigure(randomMove.to);
   }
 
   watch(turn, () => {
-    AIMove();
     if (turn.value !== USER_COLOR) {
       AIMove();
     }

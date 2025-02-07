@@ -23,7 +23,7 @@ const isPossibleMove = computed(() => {
 });
 
 const isDisabled = computed(() => {
-  // if (!gameStore.isUserMove) return true;
+  if (!gameStore.isUserMove) return true;
   if (!gameStore.playerReady) return true;
   if (!isPossibleMove.value && props?.figure?.color !== gameStore.turn) {
     return true;

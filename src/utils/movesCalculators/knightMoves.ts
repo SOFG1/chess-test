@@ -112,8 +112,6 @@ export function knightMoves(
     beatsKing = true;
   }
 
-  console.log(moves)
-
   //Result
   return { moves, beatsKing };
 }
