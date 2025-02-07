@@ -7,6 +7,7 @@ import { computed } from "vue";
 const props = defineProps<{ name: string; you?: boolean }>();
 const gameStore = useGameStore();
 const text = computed(() => {
+  if (!gameStore.playerReady) return;
   if (gameStore.turn === USER_COLOR && props.you) return "Ваш ход";
   if (gameStore.turn !== USER_COLOR && !props.you) return "Думает...";
 });
@@ -28,7 +29,10 @@ const text = computed(() => {
   align-items: center;
   gap: 5px;
   height: 120px;
-  padding-bottom: 20px;
+}
+
+.player.reverse {
+  flex-direction: column-reverse;
 }
 
 .avatar {
@@ -48,13 +52,7 @@ const text = computed(() => {
   min-width: 75px;
 }
 
-.reverse {
-  flex-direction: column-reverse;
-}
-
 .text {
-  position: absolute;
   color: #61c8af;
-  bottom: 0;
 }
 </style>
