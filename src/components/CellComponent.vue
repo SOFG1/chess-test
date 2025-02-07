@@ -31,6 +31,10 @@ const isDisabled = computed(() => {
   return false;
 });
 
+const isCheck = computed(() => {
+  return gameStore.isCheck && props.figure?.color === gameStore.turn && props.figure.type === "king"
+})
+
 function handleClick(e: PointerEvent) {
   //Select figure
   if (props?.figure?.color === gameStore.turn) {
@@ -64,7 +68,7 @@ const figures = {
   <button
     :class="[
       'cell',
-      { 'cell-possible': isPossibleMove, beat: figure, disabled: isDisabled },
+      { 'possible': isPossibleMove, beat: figure, disabled: isDisabled, checked: isCheck },
     ]"
     @click="handleClick"
   >
@@ -92,13 +96,17 @@ const figures = {
   transition: 200ms linear;
 }
 
-.cell-possible {
+.possible {
   background-color: rgba(97, 200, 174, 0.4);
   cursor: pointer;
 }
 
-.cell-possible.beat {
+.possible.beat {
   background-color: rgba(217, 60, 68, 0.7);
+}
+
+.checked {
+  background-color: rgba(217, 60, 68, 0.915);
 }
 
 .cell:not(.disabled) {

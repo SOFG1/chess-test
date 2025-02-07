@@ -18,22 +18,25 @@ export function calculatePossibleMoves(
 
   const movesFiltered = moves.filter((move) => {
     const updatedTable = moveFigureOnTable(table, figureIndex, move); //Updated table after move
-    const opponentColor = color === "black" ? "white" : "black";
-    const opponentFigures = getTableFigures(table, opponentColor);
-    let beats = false;
-    //Check if opponent's figures beat king
-    opponentFigures.forEach((f) => {
-      const { beatsKing } = calculateFigureMoves(
-        updatedTable,
-        f.index,
-        f.color
-      );
-      if (beatsKing) beats = true;
-    });
-    return !beats;
+    return !getIsCheck(updatedTable, color)
   });
 
   return movesFiltered;
+}
+
+export function getIsCheck(table: CellType[], color: ColorType) {
+  const opponentColor = color === "black" ? "white" : "black";
+  const opponentFigures = getTableFigures(table, opponentColor);
+  let beats = false;
+  opponentFigures.forEach((f) => {
+    const { beatsKing } = calculateFigureMoves(
+      table,
+      f.index,
+      f.color
+    );
+    if (beatsKing) beats = true;
+  });
+  return beats;
 }
 
 function calculateFigureMoves(

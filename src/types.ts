@@ -1,6 +1,5 @@
 type FigureType = "pawn" | "knight" | "bishop" | "rook" | "queen" | "king";
 
-
 export type ColorType = "black" | "white";
 
 export type Figure = {
@@ -8,4 +7,4 @@ export type Figure = {
   color: ColorType;
 };
 
-export type CellType = Figure | null;
+export type CellType = null | Figure

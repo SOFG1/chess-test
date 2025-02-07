@@ -1,5 +1,5 @@
 import { CellType, ColorType } from "@/types";
-import { calculatePossibleMoves } from "@/utils/movesCalculators";
+import { calculatePossibleMoves, getIsCheck } from "@/utils/movesCalculators";
 import { generateInitialTable } from "@/utils/generateInitialTable";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
@@ -18,6 +18,10 @@ export const useGameStore = defineStore("gameStore", () => {
     return playerReady.value && turn.value === USER_COLOR;
   });
 
+  const isCheck = computed(() => {
+    return getIsCheck(table.value, turn.value);
+  });
+
   function setReady(ready: boolean) {
     if (playerReady.value) return;
     playerReady.value = ready;
@@ -27,11 +31,7 @@ export const useGameStore = defineStore("gameStore", () => {
   function onSelectFigure(index: number) {
     // if (!isUserMove.value) return;
     setSelectedFigure(index);
-    const moves = calculatePossibleMoves(
-      table.value,
-      index,
-      turn.value
-    );
+    const moves = calculatePossibleMoves(table.value, index, turn.value);
     setPossibleMoves(moves);
   }
 
@@ -65,6 +65,7 @@ export const useGameStore = defineStore("gameStore", () => {
     possibleMoves,
     table,
     isUserMove,
+    isCheck,
     onSelectFigure,
     setReady,
     setPossibleMoves,
