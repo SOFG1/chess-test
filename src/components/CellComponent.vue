@@ -19,7 +19,7 @@ const props = defineProps<{ figure: CellType; index: number }>();
 const gameStore = useGameStore();
 
 const isPossibleMove = computed(() => {
-  return gameStore.possibleMoves.includes(props.index);
+  return gameStore.selectedPossibleMoves.includes(props.index);
 });
 
 const isDisabled = computed(() => {

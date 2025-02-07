@@ -9,7 +9,6 @@ const gameStore = useGameStore();
 function handlePageClick(e: PointerEvent) {
   const isMovableCellClick = (e.target as Element)?.closest(".cell-possible");
   if (!isMovableCellClick) {
-    gameStore.setPossibleMoves([]);
     gameStore.setSelectedFigure(null);
   }
 }

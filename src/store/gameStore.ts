@@ -4,6 +4,7 @@ import { generateInitialTable } from "@/utils/generateInitialTable";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { moveFigureOnTable } from "@/utils/moveFigureOnTable";
+import { getTableFigures } from "@/utils/getTableFigures";
 
 const USER_COLOR = "white";
 
@@ -11,15 +12,37 @@ export const useGameStore = defineStore("gameStore", () => {
   const playerReady = ref(false);
   const turn = ref<ColorType>("black");
   const table = ref<CellType[]>(generateInitialTable());
-  const possibleMoves = ref<number[]>([]);
   const selectedFigure = ref<number | null>(null);
 
-  const isUserMove = computed(() => {
+  const isUserMove = computed<boolean>(() => {
     return playerReady.value && turn.value === USER_COLOR;
   });
 
-  const isCheck = computed(() => {
+  const isCheck = computed<boolean>(() => {
     return getIsCheck(table.value, turn.value);
+  });
+
+  const allPosibleMoves = computed<{
+    moves: Record<string, number[]>;
+    count: number;
+  }>(() => {
+    const moves = {};
+    let count = 0;
+    const figures = getTableFigures(table.value, turn.value);
+    figures.forEach((figure) => {
+      const figureMoves = calculatePossibleMoves(
+        table.value,
+        figure.index,
+        turn.value
+      );
+      moves[figure.index] = figureMoves;
+      count += figureMoves.length;
+    });
+    return { moves, count };
+  });
+
+  const selectedPossibleMoves = computed(() => {
+    return allPosibleMoves.value.moves[selectedFigure.value] || [];
   });
 
   function setReady(ready: boolean) {
@@ -31,12 +54,6 @@ export const useGameStore = defineStore("gameStore", () => {
   function onSelectFigure(index: number) {
     // if (!isUserMove.value) return;
     setSelectedFigure(index);
-    const moves = calculatePossibleMoves(table.value, index, turn.value);
-    setPossibleMoves(moves);
-  }
-
-  function setPossibleMoves(moves: number[]) {
-    possibleMoves.value = moves;
   }
 
   function setSelectedFigure(val: number | null) {
@@ -48,28 +65,26 @@ export const useGameStore = defineStore("gameStore", () => {
   }
 
   function moveFigure(cellIndex: number) {
-    if (!possibleMoves.value.includes(cellIndex)) return;
+    if (!selectedPossibleMoves.value.includes(cellIndex)) return;
     table.value = moveFigureOnTable(
       table.value,
       selectedFigure.value,
       cellIndex
     );
     setSelectedFigure(null); //Reset selected
-    setPossibleMoves([]); //Reset possible
     switchTurn(); //Next player's move
   }
 
   return {
     playerReady,
     turn,
-    possibleMoves,
+    selectedPossibleMoves,
     table,
     isUserMove,
     selectedFigure,
     isCheck,
     onSelectFigure,
     setReady,
-    setPossibleMoves,
     setSelectedFigure,
     moveFigure,
   };

@@ -1,6 +1,7 @@
 import { BOTTOM_BORDER_CELLS, TOP_BORDER_CELLS } from "@/constants";
 import { CellType } from "@/types";
 
+//Moves figure on table and returns updated table
 export function moveFigureOnTable(
   table: CellType[],
   from: number,
