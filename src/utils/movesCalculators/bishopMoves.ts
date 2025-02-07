@@ -5,8 +5,13 @@ import {
   TOP_BORDER_CELLS,
 } from "@/constants";
 import { CellType, ColorType } from "@/types";
+import { CalculatorReturnType } from "./types";
 
-export function bishopMoves(table: CellType[], figureIndex: number, color: ColorType): number[] {
+export function bishopMoves(
+  table: CellType[],
+  figureIndex: number,
+  color: ColorType
+): CalculatorReturnType {
   const moves = [];
 
   //1. top/left moves
@@ -92,5 +97,5 @@ export function bishopMoves(table: CellType[], figureIndex: number, color: Color
     }
     moves.push(stepCell);
   }
-  return moves;
+  return { moves, beatsKing: false };
 }

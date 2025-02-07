@@ -5,8 +5,13 @@ import {
   RIGHT_BORDER_CELLS,
   TOP_BORDER_CELLS,
 } from "@/constants";
+import { CalculatorReturnType } from "./types";
 
-export function kingMoves(table: CellType[], figureIndex: number, color: ColorType): number[] {
+export function kingMoves(
+  table: CellType[],
+  figureIndex: number,
+  color: ColorType
+): CalculatorReturnType {
   const moves = [];
 
   //1. Top Left
@@ -69,5 +74,5 @@ export function kingMoves(table: CellType[], figureIndex: number, color: ColorTy
   if (table[step8Cell]?.color === color) valid8 = false;
   if (valid8) moves.push(step8Cell);
 
-  return moves;
+  return { moves, beatsKing: false };
 }

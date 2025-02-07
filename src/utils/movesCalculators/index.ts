@@ -5,12 +5,13 @@ import { bishopMoves } from "./bishopMoves";
 import { rookMoves } from "./rookMoves";
 import { queenMoves } from "./queenMoves";
 import { kingMoves } from "./kingMoves";
+import { CalculatorReturnType } from "./types";
 
 export function calculatePossibleMoves(
   table: CellType[],
   figureIndex: number,
   color: ColorType
-): number[] {
+): CalculatorReturnType {
   const figureType = table[figureIndex].type;
 
   switch (figureType) {

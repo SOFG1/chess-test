@@ -5,8 +5,13 @@ import {
   TOP_BORDER_CELLS,
 } from "@/constants";
 import { CellType, ColorType } from "@/types";
+import { CalculatorReturnType } from "./types";
 
-export function knightMoves(table: CellType[], figureIndex: number, color: ColorType): number[] {
+export function knightMoves(
+  table: CellType[],
+  figureIndex: number,
+  color: ColorType
+): CalculatorReturnType {
   const moves = [];
   //1) 1 step left / 2 step top
   let valid1 = true;
@@ -81,5 +86,5 @@ export function knightMoves(table: CellType[], figureIndex: number, color: Color
   if (valid8) moves.push(step8Cell);
 
   //Result
-  return moves;
+  return { moves, beatsKing: false };
 }

@@ -5,12 +5,13 @@ import {
   TOP_BORDER_CELLS,
 } from "@/constants";
 import { CellType, ColorType } from "@/types";
+import { CalculatorReturnType } from "./types";
 
 export function pawnMoves(
   table: CellType[],
   figureIndex: number,
   color: ColorType
-): number[] {
+): CalculatorReturnType {
   if (color === "white") return whitePawnMoves(table, figureIndex, color);
   if (color === "black") return blackPawnMoves(table, figureIndex, color);
 }
@@ -20,7 +21,7 @@ function whitePawnMoves(
   table: CellType[],
   figureIndex: number,
   color: ColorType
-): number[] {
+): CalculatorReturnType {
   const moves = [];
   //1. Pawn frist step (top cell)
   let valid1 = true;
@@ -53,7 +54,7 @@ function whitePawnMoves(
   if (valid4) moves.push(step4Cell);
 
   //Result
-  return moves;
+  return {moves, beatsKing: false};
 }
 
 //Black
@@ -61,7 +62,7 @@ function blackPawnMoves(
   table: CellType[],
   figureIndex: number,
   color: ColorType
-): number[] {
+): CalculatorReturnType {
   const moves = [];
   //1. Pawn frist step (bottom cell)
   let valid1 = true;
@@ -94,5 +95,5 @@ function blackPawnMoves(
   if (valid4) moves.push(step4Cell);
 
   //Result
-  return moves;
+  return {moves, beatsKing: false};
 }

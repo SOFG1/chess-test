@@ -5,8 +5,9 @@ import {
   TOP_BORDER_CELLS,
 } from "@/constants";
 import { CellType, ColorType } from "@/types";
+import { CalculatorReturnType } from "./types";
 
-export function rookMoves(table: CellType[], figureIndex: number, color: ColorType): number[] {
+export function rookMoves(table: CellType[], figureIndex: number, color: ColorType): CalculatorReturnType {
   const moves = [];
   //Left moves
   for (let i = 1; i < 8; i++) {
@@ -72,5 +73,5 @@ export function rookMoves(table: CellType[], figureIndex: number, color: ColorTy
     moves.push(stepCell);
   }
 
-  return moves;
+  return {moves, beatsKing: false};
 }
