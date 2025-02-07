@@ -2,11 +2,10 @@ import { CellType, ColorType } from "@/types";
 import { calculatePossibleMoves, getIsCheck } from "@/utils/movesCalculators";
 import { generateInitialTable } from "@/utils/generateInitialTable";
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { moveFigureOnTable } from "@/utils/moveFigureOnTable";
 import { getTableFigures } from "@/utils/getTableFigures";
 import { USER_COLOR } from "@/constants";
-
 
 export const useGameStore = defineStore("gameStore", () => {
   const playerReady = ref(false);
@@ -74,6 +73,25 @@ export const useGameStore = defineStore("gameStore", () => {
     setSelectedFigure(null); //Reset selected
     switchTurn(); //Next player's move
   }
+
+  function AIMove() {
+    setTimeout(() => {
+      const moves = [];
+      Object.keys(allPosibleMoves.value.moves).forEach((key: string) => {
+        allPosibleMoves.value.moves[key].forEach((move: number) => {
+          moves.push({ from: Number(key), to: move });
+        });
+      });
+      console.log(moves)
+    }, 2000);
+  }
+
+  watch(turn, () => {
+    AIMove();
+    if (turn.value !== USER_COLOR) {
+      AIMove();
+    }
+  });
 
   return {
     playerReady,

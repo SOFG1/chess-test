@@ -6,6 +6,7 @@ import {
 } from "@/constants";
 import { CellType, ColorType } from "@/types";
 import { CalculatorReturnType } from "./types";
+import { checkKingCell } from "./checkKingCell";
 
 export function knightMoves(
   table: CellType[],
@@ -23,7 +24,7 @@ export function knightMoves(
   if (TOP_BORDER_CELLS.includes(figureIndex - 8)) valid1 = false;
   if (table[step1Cell]?.color === color) valid1 = false;
   if (valid1) moves.push(step1Cell);
-  if (table[step1Cell]?.color !== color && table[step1Cell]?.type === "king") {
+  if (checkKingCell(table[step1Cell], color)) {
     beatsKing = true;
   }
 
@@ -35,7 +36,7 @@ export function knightMoves(
   if (TOP_BORDER_CELLS.includes(figureIndex)) valid1 = false;
   if (table[step2Cell]?.color === color) valid2 = false;
   if (valid2) moves.push(step2Cell);
-  if (table[step2Cell]?.color !== color && table[step2Cell]?.type === "king") {
+  if (checkKingCell(table[step2Cell], color)) {
     beatsKing = true;
   }
 
@@ -47,7 +48,7 @@ export function knightMoves(
   if (BOTTOM_BORDER_CELLS.includes(figureIndex + 8)) valid3 = false;
   if (table[step3Cell]?.color === color) valid3 = false;
   if (valid3) moves.push(step3Cell);
-  if (table[step3Cell]?.color !== color && table[step3Cell]?.type === "king") {
+  if (checkKingCell(table[step3Cell], color)) {
     beatsKing = true;
   }
 
@@ -59,7 +60,7 @@ export function knightMoves(
   if (BOTTOM_BORDER_CELLS.includes(figureIndex)) valid3 = false;
   if (table[step4Cell]?.color === color) valid4 = false;
   if (valid4) moves.push(step4Cell);
-  if (table[step4Cell]?.color !== color && table[step4Cell]?.type === "king") {
+  if (checkKingCell(table[step4Cell], color)) {
     beatsKing = true;
   }
 
@@ -71,7 +72,7 @@ export function knightMoves(
   if (TOP_BORDER_CELLS.includes(figureIndex - 8)) valid1 = false;
   if (table[step5Cell]?.color === color) valid5 = false;
   if (valid5) moves.push(step5Cell);
-  if (table[step5Cell]?.color !== color && table[step5Cell]?.type === "king") {
+  if (checkKingCell(table[step5Cell], color)) {
     beatsKing = true;
   }
 
@@ -83,7 +84,7 @@ export function knightMoves(
   if (TOP_BORDER_CELLS.includes(figureIndex)) valid1 = false;
   if (table[step6Cell]?.color === color) valid6 = false;
   if (valid6) moves.push(step6Cell);
-  if (table[step6Cell]?.color !== color && table[step6Cell]?.type === "king") {
+  if (checkKingCell(table[step6Cell], color)) {
     beatsKing = true;
   }
 
@@ -95,7 +96,7 @@ export function knightMoves(
   if (BOTTOM_BORDER_CELLS.includes(figureIndex + 8)) valid3 = false;
   if (table[step7Cell]?.color === color) valid7 = false;
   if (valid7) moves.push(step7Cell);
-  if (table[step7Cell]?.color !== color && table[step7Cell]?.type === "king") {
+  if (checkKingCell(table[step7Cell], color)) {
     beatsKing = true;
   }
 
@@ -107,9 +108,11 @@ export function knightMoves(
   if (BOTTOM_BORDER_CELLS.includes(figureIndex)) valid3 = false;
   if (table[step8Cell]?.color === color) valid8 = false;
   if (valid8) moves.push(step8Cell);
-  if (table[step8Cell]?.color !== color && table[step8Cell]?.type === "king") {
+  if (checkKingCell(table[step8Cell], color)) {
     beatsKing = true;
   }
+
+  console.log(moves)
 
   //Result
   return { moves, beatsKing };
