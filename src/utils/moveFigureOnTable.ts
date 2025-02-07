@@ -9,7 +9,7 @@ export function moveFigureOnTable(
   const copy = [...table];
   copy[to] = copy[from];
   copy[from] = null;
-  //Check if a pawn get to queen
+  //Check if a pawn gets to a queen
   if (copy[to].type !== "pawn") return copy;
   if (copy[to].color === "white" && TOP_BORDER_CELLS.includes(to)) {
     copy[to] = { type: "queen", color: "white" };
