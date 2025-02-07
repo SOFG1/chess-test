@@ -24,6 +24,7 @@ function whitePawnMoves(
 ): CalculatorReturnType {
   const moves = [];
   let beatsKing = false;
+  
   //1. Pawn frist step (top cell)
   let valid1 = true;
   const topCell = figureIndex - 8;
@@ -72,6 +73,7 @@ function blackPawnMoves(
 ): CalculatorReturnType {
   const moves = [];
   let beatsKing = false;
+
   //1. Pawn frist step (bottom cell)
   let valid1 = true;
   const topCell = figureIndex + 8;
