@@ -26,7 +26,7 @@ export const useGameStore = defineStore("gameStore", () => {
   function onSelectFigure(index: number) {
     // if (!isUserMove.value) return;
     setSelectedFigure(index);
-    const {moves} = calculatePossibleMoves(table.value, index, turn.value);
+    const { moves } = calculatePossibleMoves(table.value, index, turn.value);
     setPossibleMoves(moves);
   }
 
@@ -38,13 +38,17 @@ export const useGameStore = defineStore("gameStore", () => {
     selectedFigure.value = val;
   }
 
+  function switchTurn() {
+    turn.value = turn.value === "white" ? "black" : "white";
+  }
+
   function moveFigure(cellIndex: number) {
     if (!possibleMoves.value.includes(cellIndex)) return;
     table.value[cellIndex] = table.value[selectedFigure.value];
     table.value[selectedFigure.value] = null;
     setSelectedFigure(null);
     setPossibleMoves([]);
-    turn.value = turn.value === "white" ? "black" : "white"
+    switchTurn(); //Next player's move
   }
 
   return {
