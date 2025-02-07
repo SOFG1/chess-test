@@ -4,6 +4,7 @@ type TableFigure = Figure & {
   index: number;
 };
 
+//Get all figures on the table of specific color
 export function getTableFigures(
   table: CellType[],
   color: ColorType

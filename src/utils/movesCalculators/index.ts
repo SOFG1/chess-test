@@ -9,6 +9,7 @@ import { CalculatorReturnType } from "./types";
 import { moveFigureOnTable } from "../moveFigureOnTable";
 import { getTableFigures } from "../getTableFigures";
 
+//Calculates figure's possible moves
 export function calculatePossibleMoves(
   table: CellType[],
   figureIndex: number,
@@ -18,12 +19,13 @@ export function calculatePossibleMoves(
 
   const movesFiltered = moves.filter((move) => {
     const updatedTable = moveFigureOnTable(table, figureIndex, move); //Updated table after move
-    return !getIsCheck(updatedTable, color)
+    return !getIsCheck(updatedTable, color) //If is check move is impossible
   });
 
   return movesFiltered;
 }
 
+//Check king is checked or not
 export function getIsCheck(table: CellType[], color: ColorType) {
   const opponentColor = color === "black" ? "white" : "black";
   const opponentFigures = getTableFigures(table, opponentColor);
@@ -39,6 +41,7 @@ export function getIsCheck(table: CellType[], color: ColorType) {
   return beats;
 }
 
+//Calculate figure moves
 function calculateFigureMoves(
   table: CellType[],
   figureIndex: number,

@@ -1,5 +1,6 @@
 import { CellType } from "@/types";
 
+//Generate initial figures placement
 export function generateInitialTable(): CellType[] {
   const array: CellType[] = new Array(64).fill(null);
   array[0] = { type: "rook", color: "black" };
