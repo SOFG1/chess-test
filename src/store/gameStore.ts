@@ -27,12 +27,11 @@ export const useGameStore = defineStore("gameStore", () => {
   function onSelectFigure(index: number) {
     // if (!isUserMove.value) return;
     setSelectedFigure(index);
-    const { moves, beatsKing } = calculatePossibleMoves(
+    const moves = calculatePossibleMoves(
       table.value,
       index,
       turn.value
     );
-    console.log(beatsKing);
     setPossibleMoves(moves);
   }
 
@@ -55,8 +54,8 @@ export const useGameStore = defineStore("gameStore", () => {
       selectedFigure.value,
       cellIndex
     );
-    setSelectedFigure(null);
-    setPossibleMoves([]);
+    setSelectedFigure(null); //Reset selected
+    setPossibleMoves([]); //Reset possible
     switchTurn(); //Next player's move
   }
 

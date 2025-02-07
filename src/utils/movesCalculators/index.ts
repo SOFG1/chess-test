@@ -13,7 +13,7 @@ export function calculatePossibleMoves(
   table: CellType[],
   figureIndex: number,
   color: ColorType
-): CalculatorReturnType {
+): number[] {
   const { moves } = calculateFigureMoves(table, figureIndex, color);
 
   const movesFiltered = moves.filter((move) => {
@@ -33,7 +33,7 @@ export function calculatePossibleMoves(
     return !beats;
   });
 
-  return { moves: movesFiltered, beatsKing: false };
+  return movesFiltered;
 }
 
 function calculateFigureMoves(
